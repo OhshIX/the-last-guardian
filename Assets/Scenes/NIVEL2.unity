@@ -2199,7 +2199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 839848148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Punto_Disparo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2398,7 +2398,7 @@ Transform:
   m_GameObject: {fileID: 954629980}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.005833, y: -0.1817, z: 0}
+  m_LocalPosition: {x: -0.005833, y: -0.5081, z: 0}
   m_LocalScale: {x: 0.1, y: 2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2471,7 +2471,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 10.449989, y: 1.689875}
+  m_Size: {x: 10.449989, y: 1.3635224}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4779,6 +4779,10 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 3928496508645108836, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4111373972530693603, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -4865,7 +4869,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7216439620149570991, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       propertyPath: m_Name
-      value: villano
+      value: Villano
+      objectReference: {fileID: 0}
+    - target: {fileID: 7216439620149570991, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7216439620149570991, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       propertyPath: m_TagString
@@ -7267,13 +7275,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1612893509753955502, guid: c9657d49438f9b048be09f6b6df1f1ea, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5538105
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612893509753955502, guid: c9657d49438f9b048be09f6b6df1f1ea, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.69226307
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509443734156788643, guid: c9657d49438f9b048be09f6b6df1f1ea, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 61.43935
+      objectReference: {fileID: 0}
     - target: {fileID: 4509443734156788643, guid: c9657d49438f9b048be09f6b6df1f1ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.16
+      value: 29.9657
       objectReference: {fileID: 0}
     - target: {fileID: 4509443734156788643, guid: c9657d49438f9b048be09f6b6df1f1ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8700008
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4509443734156788643, guid: c9657d49438f9b048be09f6b6df1f1ea, type: 3}
       propertyPath: m_LocalPosition.z
