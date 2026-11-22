@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class caminar : MonoBehaviour
 {
+    [Header("Configuración de Multijugador")]
+    public bool esJugadorDos = false; // Falso para Player, Verdadero para Villano
+
     [Header("Movimiento")]
     public float velocidad = 5f;
     public float velocidadCorrer = 8f;
@@ -31,26 +34,73 @@ public class caminar : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
+        // Restaurado: Busca el Animator en el propio objeto 2D como lo tenías antes
         animator = GetComponent<Animator>();
+        
         escalaOriginal = transform.localScale;
     }
 
     void Update()
     {
+        // ==========================================
+// ACCIÓN DE ATAQUE PARA EL MULTIJUGADOR
+// ==========================================
+// El Player 1 podría atacar con el clic o la tecla 'F', el Villano (Jugador 2) atacará con la tecla 
+// =======================================================
+// ACCIÓN DE ATAQUE EXCLUSIVA PARA EL JUGADOR 2 (VILLANO)
+// =======================================================
+    if (esJugadorDos)
+    {
+    // El villano ataca al presionar la tecla P
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (animator != null)
+            {
+                if (TieneParametro("ATAQUE", animator)) 
+            {
+                animator.SetTrigger("ATAQUE");
+            }
+            }
+        }
+    }
+
+
+
         // Si el jugador ya murió, bloqueamos por completo el control
         if (estaMuerto) return;
+        movimiento=0f;
 
-        movimiento = Input.GetAxisRaw("Horizontal");
-        corriendo = Input.GetKey(KeyCode.LeftShift);
+        // SEPARACIÓN DE CONTROLES LIMPIA
+        if (!esJugadorDos)
+        {
+            // JUGADOR 1 (PLAYER): Se mueve ÚNICAMENTE con letras A y D
+            if (Input.GetKey(KeyCode.A)) movimiento = -1f;
+            if (Input.GetKey(KeyCode.D)) movimiento = 1f;
 
-        // DETECTOR DE SUELO
+            corriendo = Input.GetKey(KeyCode.LeftShift);
+        }
+        else
+        {
+            // JUGADOR 2 (VILLANO: Usa flechas laterales y Shift Derecho)
+            movimiento = 0f;
+            if (Input.GetKey(KeyCode.LeftArrow)) movimiento = -1f;
+            if (Input.GetKey(KeyCode.RightArrow)) movimiento = 1f;
+
+            corriendo = Input.GetKey(KeyCode.RightShift);
+        }
+
+        // DETECTOR DE SUELO (Tu lógica original)
         if (puntoSuelo != null)
         {
             enSuelo = Physics2D.Raycast(puntoSuelo.position, Vector2.down, distanciaSuelo, capaSuelo);
         }
 
-        // ACCIÓN DE SALTO
-        if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
+        // ACCIÓN DE SALTO SEPARADA
+        // Player 1 salta con Espacio | Villano salta con Flecha Arriba
+        bool botonSalto = !esJugadorDos ? Input.GetKeyDown(KeyCode.Space) : Input.GetKeyDown(KeyCode.UpArrow);
+
+        if (botonSalto && enSuelo)
         {
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
 
@@ -62,30 +112,20 @@ public class caminar : MonoBehaviour
             if (animator != null)
             {
                 if (TieneParametro("SALTAR", animator)) animator.SetTrigger("SALTAR");
-                else if (TieneParametro("SALTAR", animator)) animator.SetTrigger("SALTAR");
             }
         }
 
-        // ENVIAR PARÁMETROS AL ANIMATOR DE FORMA SEGURA
+        // ENVIAR PARÁMETROS AL ANIMATOR (Tu lógica original intacta)
         if (animator != null)
-         
         {
-            // Tomamos el valor directo de la tecla presionada (movimiento es 1 o -1)
-            // Usamos Mathf.Abs para que siempre sea positivo (así da 1 al caminar)
             float velocidadForzada = Mathf.Abs(movimiento);
 
-            // Intentamos enviar tanto en mayúsculas como en minúsculas por si acaso
             if (TieneParametro("VELOCIDAD", animator)) animator.SetFloat("VELOCIDAD", velocidadForzada);
-            else if (TieneParametro("VELOCIDAD", animator)) animator.SetFloat("VELOCIDAD", velocidadForzada);
-
             if (TieneParametro("EN_SUELO", animator)) animator.SetBool("EN_SUELO", enSuelo);
-            else if (TieneParametro("EN_SUELO", animator)) animator.SetBool("EN_SUELO", enSuelo);
-
             if (TieneParametro("CORRER", animator)) animator.SetBool("CORRER", corriendo);
-            else if (TieneParametro("CORRER", animator)) animator.SetBool("CORRER", corriendo);
         }
 
-        // Voltear personaje
+        // VOLTEAR PERSONAJE (Tu volteo original por escala intacto)
         if (movimiento > 0)
         {
             transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
@@ -96,38 +136,37 @@ public class caminar : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        if (estaMuerto) return;
+    void FixedUpdate(){
+    // SOLUCIÓN DEFINITIVA: Si el personaje ya está muerto o el script se deshabilitó,
+    // frenamos en seco cualquier intento de fijar velocidad física en el Rigidbody.
+    if (estaMuerto) return;
 
-        float velocidadActual = corriendo ? velocidadCorrer : velocidad;
-        rb.velocity = new Vector2(movimiento * velocidadActual, rb.velocity.y);
+    float velocidadActual = corriendo ? velocidadCorrer : velocidad;
+    rb.velocity = new Vector2(movimiento * velocidadActual, rb.velocity.y);
     }
 
-    // ==========================================
-    // MÉTODO DE MUERTE (Llamar desde script de daño)
-    // ==========================================
+
     public void Morir()
+{
+    // CANDADO DE SEGURIDAD: Evita que el Villano muera por error
+    if (esJugadorDos) return; 
+
+    if (estaMuerto) return;
+    estaMuerto = true;
+
+    if (animator != null && TieneParametro("MORIR", animator))
     {
-        if (estaMuerto) return; // Evita que se ejecute más de una vez
-
-        estaMuerto = true;
-
-        if (animator != null)
-        {
-            if (TieneParametro("MORIR", animator)) animator.SetTrigger("MORIR");
-            else if (TieneParametro("MORIR", animator)) animator.SetTrigger("MORIR");
-        }
-
-        // Detener físicamente al personaje y desactivar fuerzas gravitacionales complejas
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Static;
-        }
+        animator.SetTrigger("MORIR");
     }
 
-    // Validador inteligente de parámetros
+    if (rb != null)
+    {
+        rb.velocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+    }
+}
+
+
     private bool TieneParametro(string nombreParametro, Animator anim)
     {
         foreach (AnimatorControllerParameter param in anim.parameters)
@@ -136,6 +175,9 @@ public class caminar : MonoBehaviour
         }
         return false;
     }
+
+ 
+
 
     void OnDrawGizmos()
     {
@@ -146,9 +188,6 @@ public class caminar : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // POWER-UPS / POTENCIADORES
-    // ==========================================
     public void ActivarVelocidadBoost(float nuevaVelocidad, float duracion)
     {
         if (estaMuerto) return;
@@ -200,5 +239,28 @@ public class caminar : MonoBehaviour
         esInmune = false;
         gameObject.layer = capaOriginal;
         if (sprite != null) sprite.color = Color.white;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+    // Si caemos desde arriba sobre el objeto llamado villano
+        if (collision.gameObject.name == "villano" || collision.gameObject.CompareTag("Villano"))
+        {
+            foreach (ContactPoint2D punto in collision.contacts)
+            {
+                if (punto.normal.y > 0.5f) // Verifica que el golpe venga desde arriba
+                {
+                    VillanoAtaqueFuego ataque = collision.gameObject.GetComponent<VillanoAtaqueFuego>();
+                if (ataque != null)
+                    {
+                    ataque.RecibirPisoton(); // Llama a la resta de vida
+                    
+                    // Hace que el Player rebote al dar el pisotón
+                    if (rb != null) rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto * 0.7f);
+                    break;
+                    }
+                }
+            }
+        }
     }
 }

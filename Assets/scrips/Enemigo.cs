@@ -17,22 +17,38 @@ public class Enemigo : MonoBehaviour
     private bool _yaMurio = false;
     private Color colorOriginal;
 
-    public VillanoAtaqueFuego scriptFuego;
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (_yaMurio) return; 
 
         if (other.gameObject.CompareTag("Player"))
         {
-            // 1. VERIFICAR PISADA DESDE ARRIBA (Muerte de cualquier enemigo)
+            // VERIFICAR PISADA DESDE ARRIBA
             foreach (ContactPoint2D puntoContacto in other.contacts)
             {
                 if (puntoContacto.normal.y < -0.5f) 
                 {
+                    // === FILTRO INTELIGENTE PARA TU VILLANO MULTIPLAYER ===
+                    // Si el objeto tiene las mecánicas del villano, delegamos el daño a sus pisotones independientes
+                    VillanoAtaqueFuego ataqueVillano = GetComponent<VillanoAtaqueFuego>();
+                    if (ataqueVillano != null)
+                    {
+                        ataqueVillano.RecibirPisoton(); 
+
+                        // Hacer rebotar al jugador encima del jefe
+                        Rigidbody2D rbJefe = other.gameObject.GetComponent<Rigidbody2D>();
+                        if (rbJefe != null)
+                        {
+                            caminar scriptJugador = other.gameObject.GetComponent<caminar>();
+                            float fuerzaRebote = (scriptJugador != null) ? scriptJugador.fuerzaSalto * 0.8f : 8f;
+                            rbJefe.velocity = new Vector2(rbJefe.velocity.x, fuerzaRebote);
+                        }
+                        return; // Salimos para evitar que muera inmediatamente
+                    }
+
+                    // LÓGICA PARA ENEMIGOS COMUNES DEL MAPA (Rocas, magos, etc.)
                     _yaMurio = true; 
 
-                    // Hacer rebotar al jugador que cayó encima
                     Rigidbody2D rbJugador = other.gameObject.GetComponent<Rigidbody2D>();
                     if (rbJugador != null)
                     {
@@ -41,40 +57,26 @@ public class Enemigo : MonoBehaviour
                         rbJugador.velocity = new Vector2(rbJugador.velocity.x, fuerzaRebote);
                     }
 
-                    // Activar la animación de muerte unificada ("Morir")
                     Animator anim = GetComponent<Animator>();
                     if (anim != null)
                     {
                         anim.SetTrigger(TRIGGER_MUERTE); 
                     }
 
-                    // Desactivar físicas y colisiones inmediatas para no dañar al jugador mientras cae
                     Collider2D collider = GetComponent<Collider2D>();
                     if (collider != null) { collider.enabled = false; }
 
-                    // Apagar scripts de movimiento de patrulla base si el enemigo los tiene
                     if (TryGetComponent<EnemigoPatrulla>(out var patrulla)) { patrulla.enabled = false; }
-
-                    // Apagar el script calculador de animaciones de movimiento si lo tiene
                     if (TryGetComponent<AnimadorEnemigo>(out var animMovimiento)) { animMovimiento.enabled = false; }
-                    
-                    // === SOLUCIÓN GENÉRICA INTELIGENTE PARA EL VILLANO ===
-                    // Si el objeto pisado tiene el script de ataque del villano en bucle, apaga sus disparos
-                    if (TryGetComponent<VillanoAtaqueFuego>(out var ataqueVillano)) 
-                    { 
-                        scriptFuego.DesactivarVillano(); 
-                    }
                     
                     return; 
                 }
             }
 
-
             EjecutarDanoAlJugador(other);
         }
     }
 
-    // MÉTODO PARA DESTRUIR AL ENEMIGO (Llamado únicamente por el Animation Event azul al final del clip de muerte)
     public void Morir()
     {
         Destroy(gameObject);
@@ -116,6 +118,4 @@ public class Enemigo : MonoBehaviour
             srJugador.color = colorOriginal;
         }
     }
-
-     
 }

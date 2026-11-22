@@ -8,6 +8,8 @@ TagManager:
   - Vida
   - GameManager
   - EnemyImmune
+  - Enemy
+  - Villano
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - UI
   - Enemy
   - Fantasma
-  - 
-  - 
+  - Villano
+  - BolaDeFuego
   - 
   - 
   - 
