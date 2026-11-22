@@ -11,8 +11,6 @@ public class AnimadorEnemigo : MonoBehaviour
     [Tooltip("Marca esto SOLO si este objeto es el enemigo de la Roca que camina")]
     [SerializeField] private bool esEnemigoRoca = false;
 
-    //[SerializeField] private bool esEnemigoMago = false;
-
     void Start() 
     {
         animator = GetComponent<Animator>();
@@ -23,15 +21,16 @@ public class AnimadorEnemigo : MonoBehaviour
     {
         if (estaMuerto || animator == null) return;
 
-        // Lógica de la roca que camina
-        if (esEnemigoRoca)// && esEnemigoMago) 
+        // Lógica limpia de la roca que camina (se eliminó el comentario incompleto de esEnemigoMago)
+        if (esEnemigoRoca) 
         {
             float movimientoX = Mathf.Abs(transform.position.x - posicionPrevia.x) / Time.deltaTime;
             
+            // OPTIMIZACIÓN: Se eliminó el "else if" repetido que hacía exactamente la misma validación
             if (TieneParametro("VELOCIDAD", animator)) 
+            {
                 animator.SetFloat("VELOCIDAD", movimientoX);
-            else if (TieneParametro("VELOCIDAD", animator)) 
-                animator.SetFloat("VELOCIDAD", movimientoX);
+            }
         }
 
         posicionPrevia = transform.position;

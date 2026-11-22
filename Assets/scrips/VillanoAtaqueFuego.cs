@@ -11,52 +11,77 @@ public class VillanoAtaqueFuego : MonoBehaviour
     [SerializeField] private GameObject prefabBolaFuego; 
     [SerializeField] private Transform puntoDisparo;     
 
-    [Header("Tiempos de Combate")]
-    [SerializeField] private float tiempoEntreAtaques = 2.5f; 
+    [Header("Sistema de Vidas (Pisotones)")]
+    [SerializeField] private int vidasPisotones = 3; // Única condición de muerte: 3 pisotones
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        StartCoroutine(BucleAtaqueJefe());
+        // El inicio automático está completamente desactivado.
+        // El villano solo atacará cuando tú presiones la tecla P.
     }
 
-    IEnumerator BucleAtaqueJefe()
+    // Llamado automáticamente por el Animation Event "LanzarProyectilFuego"
+    public void LanzarProyectilFuego()
     {
-        yield return new WaitForSeconds(1.5f);
+        // NO hay contadores de ataque aquí. El villano puede disparar infinitamente.
+        if (estaMuerto || jugadorEstaMuerto || prefabBolaFuego == null || puntoDisparo == null) return;
 
-        while (!estaMuerto && !jugadorEstaMuerto)
-        {
-            if (animator != null)
-            {
-                if (TieneParametro("ATAQUE", animator)) animator.SetTrigger("ATAQUE");
-                else if (TieneParametro("ataque", animator)) animator.SetTrigger("ataque");
-            }
+        GameObject bola = Instantiate(prefabBolaFuego, puntoDisparo.position, Quaternion.identity);
+        BolaDeFuego scriptBola = bola.GetComponent<BolaDeFuego>();
 
-            yield return new WaitForSeconds(tiempoEntreAtaques);
+        if (scriptBola != null)
+        { 
+            float direccionX = transform.localScale.x > 0 ? 1f : -1f;
+            Vector2 direccionFinal = new Vector2(direccionX, 0f);
+
+            scriptBola.ConfigurarDireccion(direccionFinal);
         }
     }
 
-    public void LanzarProyectilFuego()
-{
-    if (estaMuerto || jugadorEstaMuerto || prefabBolaFuego == null || puntoDisparo == null) return;
+    // =========================================================================
+    // ÚNICA LÓGICA DE MUERTE: CONTROLADA POR PISOTONES DEL JUGADOR
+    // =========================================================================
+    public void RecibirPisoton()
+    {
+        if (estaMuerto) return;
 
-    GameObject bola = Instantiate(prefabBolaFuego, puntoDisparo.position, Quaternion.identity);
-    BolaDeFuego scriptBola = bola.GetComponent<BolaDeFuego>();
+        vidasPisotones--; // Resta una vida de pisotón
 
-    if (scriptBola != null)
-    { 
-        float direccionX = transform.localScale.x > 0 ? 1f : -1f;
-        Vector2 direccionFinal = new Vector2(direccionX, 0f);
+        Debug.Log("¡Pisotón detectado! Vidas del villano restantes: " + vidasPisotones);
 
-        scriptBola.ConfigurarDireccion(direccionFinal);
+        if (vidasPisotones <= 0)
+        {
+            EjecutarMuerteDefinitiva();
+        }
     }
-}
 
-    public void DesactivarVillano() 
+    private void EjecutarMuerteDefinitiva()
     {
         estaMuerto = true;
         StopAllCoroutines();
-        this.enabled = false;
+
+        // Ejecuta la animación de muerte del villano
+        if (animator != null)
+        {
+            if (TieneParametro("MORIR", animator)) animator.SetTrigger("MORIR");
+        }
+
+        // Si el villano usa el script 'caminar', lo detenemos físicamente
+        caminar scriptCaminar = GetComponent<caminar>();
+        if (scriptCaminar != null)
+        {
+            scriptCaminar.Morir();
+        }
+
+        this.enabled = false; // Apaga este script de ataque
+    }
+
+    // Métodos de control e información externa
+    public void DesactivarVillano() 
+    {
+        // Ya no se auto-llama desde el bucle de disparos viejos
+        EjecutarMuerteDefinitiva();
     }
 
     public void InformarMuerteJugador()

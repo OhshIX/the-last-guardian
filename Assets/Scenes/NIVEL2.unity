@@ -2190,6 +2190,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &839848147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 839848148}
+  m_Layer: 0
+  m_Name: Punto_Disparo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &839848148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839848147}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1218871096}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &848934282
 GameObject:
   m_ObjectHideFlags: 0
@@ -3317,6 +3348,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7216439620149570991, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
   m_PrefabInstance: {fileID: 1591372745}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1218871096 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6252091811266608123, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+  m_PrefabInstance: {fileID: 1591372745}
+  m_PrefabAsset: {fileID: 0}
 --- !u!50 &1218871098
 Rigidbody2D:
   serializedVersion: 4
@@ -3365,6 +3401,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1218871100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218871093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6954981b8fa75c4695eff90ebd7c051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBolaFuego: {fileID: 6114983638395653613, guid: 5c9a19000d434524f95f2d269c8f7607, type: 3}
+  puntoDisparo: {fileID: 839848148}
+  vidasPisotones: 3
 --- !u!1 &1237796007
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,6 +3886,10 @@ PrefabInstance:
     - target: {fileID: 490229423340029830, guid: 66c7edfafcdae704198f5c40c596619a, type: 3}
       propertyPath: m_SortingOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 490229423340029830, guid: 66c7edfafcdae704198f5c40c596619a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1085460758896344604, guid: 66c7edfafcdae704198f5c40c596619a, type: 3}
       propertyPath: m_Controller
@@ -4761,12 +4816,20 @@ PrefabInstance:
       value: -0.31734824
       objectReference: {fileID: 0}
     - target: {fileID: 6252091811266608123, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.66470057
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252091811266608123, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.57497644
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252091811266608123, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.180304
+      value: 11.6481
       objectReference: {fileID: 0}
     - target: {fileID: 6252091811266608123, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.4520226
+      value: 5.9421
       objectReference: {fileID: 0}
     - target: {fileID: 6252091811266608123, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4804,10 +4867,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: villano
       objectReference: {fileID: 0}
+    - target: {fileID: 7216439620149570991, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      propertyPath: m_TagString
+      value: Villano
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6252091811266608123, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 839848148}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7216439620149570991, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1218871100}
     - targetCorrespondingSourceObject: {fileID: 7216439620149570991, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1218871098}
@@ -4885,7 +4958,6 @@ MonoBehaviour:
   colorGolpe: {r: 1, g: 0, b: 0, a: 1}
   tiempoColorCambio: 2
   Dano: {fileID: 8300000, guid: 9cca760a8a7976d4eba297b9c7633bb4, type: 3}
-  scriptFuego: {fileID: 0}
 --- !u!114 &1640714185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6453,7 +6525,6 @@ MonoBehaviour:
   colorGolpe: {r: 1, g: 0, b: 0, a: 1}
   tiempoColorCambio: 2
   Dano: {fileID: 8300000, guid: 9cca760a8a7976d4eba297b9c7633bb4, type: 3}
-  scriptFuego: {fileID: 0}
 --- !u!50 &2110461219
 Rigidbody2D:
   serializedVersion: 4

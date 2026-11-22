@@ -17,22 +17,40 @@ public class Enemigo : MonoBehaviour
     private bool _yaMurio = false;
     private Color colorOriginal;
 
-    public VillanoAtaqueFuego scriptFuego;
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (_yaMurio) return; 
 
         if (other.gameObject.CompareTag("Player"))
         {
-            // 1. VERIFICAR PISADA DESDE ARRIBA (Muerte de cualquier enemigo)
+            // VERIFICAR PISADA DESDE ARRIBA (Muerte de enemigos ambientales comunes)
             foreach (ContactPoint2D puntoContacto in other.contacts)
             {
+                // Si el jugador cae desde arriba
                 if (puntoContacto.normal.y < -0.5f) 
                 {
+                    // === MODIFICACIÓN PROFESIONAL: FILTRAR Y RESPETAR AL VILLANO ===
+                    // Si el objeto que pisamos es el Villano Multiplayer, le cedemos el control a su propio sistema de 3 vidas
+                    VillanoAtaqueFuego ataqueVillano = GetComponent<VillanoAtaqueFuego>();
+                    if (ataqueVillano != null)
+                    {
+                        ataqueVillano.RecibirPisoton(); // Ejecuta 1 pisotón de los 3 necesarios
+                        
+                        // Hacemos rebotar al jugador que cayó encima del jefe
+                        Rigidbody2D rbJefe = other.gameObject.GetComponent<Rigidbody2D>();
+                        if (rbJefe != null)
+                        {
+                            caminar scriptJugador = other.gameObject.GetComponent<caminar>();
+                            float fuerzaRebote = (scriptJugador != null) ? scriptJugador.fuerzaSalto * 0.8f : 8f;
+                            rbJefe.velocity = new Vector2(rbJefe.velocity.x, fuerzaRebote);
+                        }
+                        return; // Salimos de este script para que NO destruya al villano de inmediato
+                    }
+
+                    // LÓGICA PARA ENEMIGOS COMUNES DEL MAPA (Rocas, magos, etc.)
                     _yaMurio = true; 
 
-                    // Hacer rebotar al jugador que cayó encima
+                    // Hacer rebotar al jugador
                     Rigidbody2D rbJugador = other.gameObject.GetComponent<Rigidbody2D>();
                     if (rbJugador != null)
                     {
@@ -48,33 +66,23 @@ public class Enemigo : MonoBehaviour
                         anim.SetTrigger(TRIGGER_MUERTE); 
                     }
 
-                    // Desactivar físicas y colisiones inmediatas para no dañar al jugador mientras cae
+                    // Desactivar físicas inmediatas para el enemigo común
                     Collider2D collider = GetComponent<Collider2D>();
                     if (collider != null) { collider.enabled = false; }
 
-                    // Apagar scripts de movimiento de patrulla base si el enemigo los tiene
                     if (TryGetComponent<EnemigoPatrulla>(out var patrulla)) { patrulla.enabled = false; }
-
-                    // Apagar el script calculador de animaciones de movimiento si lo tiene
                     if (TryGetComponent<AnimadorEnemigo>(out var animMovimiento)) { animMovimiento.enabled = false; }
-                    
-                    // === SOLUCIÓN GENÉRICA INTELIGENTE PARA EL VILLANO ===
-                    // Si el objeto pisado tiene el script de ataque del villano en bucle, apaga sus disparos
-                    if (TryGetComponent<VillanoAtaqueFuego>(out var ataqueVillano)) 
-                    { 
-                        scriptFuego.DesactivarVillano(); 
-                    }
                     
                     return; 
                 }
             }
 
-
+            // Si el choque no fue desde arriba, el enemigo le hace daño al jugador
             EjecutarDanoAlJugador(other);
         }
     }
 
-    // MÉTODO PARA DESTRUIR AL ENEMIGO (Llamado únicamente por el Animation Event azul al final del clip de muerte)
+    // MÉTODO PARA DESTRUIR AL ENEMIGO COMÚN (Llamado por el Animation Event al final del clip de muerte)
     public void Morir()
     {
         Destroy(gameObject);
@@ -116,6 +124,4 @@ public class Enemigo : MonoBehaviour
             srJugador.color = colorOriginal;
         }
     }
-
-     
 }

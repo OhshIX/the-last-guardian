@@ -43,6 +43,30 @@ public class caminar : MonoBehaviour
 
     void Update()
     {
+        // ==========================================
+// ACCIÓN DE ATAQUE PARA EL MULTIJUGADOR
+// ==========================================
+// El Player 1 podría atacar con el clic o la tecla 'F', el Villano (Jugador 2) atacará con la tecla 
+// =======================================================
+// ACCIÓN DE ATAQUE EXCLUSIVA PARA EL JUGADOR 2 (VILLANO)
+// =======================================================
+    if (esJugadorDos)
+    {
+    // El villano ataca al presionar la tecla P
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (animator != null)
+            {
+                if (TieneParametro("ATAQUE", animator)) 
+            {
+                animator.SetTrigger("ATAQUE");
+            }
+            }
+        }
+    }
+
+
+
         // Si el jugador ya murió, bloqueamos por completo el control
         if (estaMuerto) return;
         movimiento=0f;
@@ -206,5 +230,28 @@ public class caminar : MonoBehaviour
         esInmune = false;
         gameObject.layer = capaOriginal;
         if (sprite != null) sprite.color = Color.white;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+    // Si caemos desde arriba sobre el objeto llamado villano
+        if (collision.gameObject.name == "villano" || collision.gameObject.CompareTag("Villano"))
+        {
+            foreach (ContactPoint2D punto in collision.contacts)
+            {
+                if (punto.normal.y > 0.5f) // Verifica que el golpe venga desde arriba
+                {
+                    VillanoAtaqueFuego ataque = collision.gameObject.GetComponent<VillanoAtaqueFuego>();
+                if (ataque != null)
+                    {
+                    ataque.RecibirPisoton(); // Llama a la resta de vida
+                    
+                    // Hace que el Player rebote al dar el pisotón
+                    if (rb != null) rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto * 0.7f);
+                    break;
+                    }
+                }
+            }
+        }
     }
 }
