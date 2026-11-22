@@ -136,30 +136,36 @@ public class caminar : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        if (estaMuerto) return;
+    void FixedUpdate(){
+    // SOLUCIÓN DEFINITIVA: Si el personaje ya está muerto o el script se deshabilitó,
+    // frenamos en seco cualquier intento de fijar velocidad física en el Rigidbody.
+    if (estaMuerto) return;
 
-        float velocidadActual = corriendo ? velocidadCorrer : velocidad;
-        rb.velocity = new Vector2(movimiento * velocidadActual, rb.velocity.y);
+    float velocidadActual = corriendo ? velocidadCorrer : velocidad;
+    rb.velocity = new Vector2(movimiento * velocidadActual, rb.velocity.y);
     }
+
 
     public void Morir()
+{
+    // CANDADO DE SEGURIDAD: Evita que el Villano muera por error
+    if (esJugadorDos) return; 
+
+    if (estaMuerto) return;
+    estaMuerto = true;
+
+    if (animator != null && TieneParametro("MORIR", animator))
     {
-        if (estaMuerto) return;
-        estaMuerto = true;
-
-        if (animator != null)
-        {
-            if (TieneParametro("MORIR", animator)) animator.SetTrigger("MORIR");
-        }
-
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Static;
-        }
+        animator.SetTrigger("MORIR");
     }
+
+    if (rb != null)
+    {
+        rb.velocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+    }
+}
+
 
     private bool TieneParametro(string nombreParametro, Animator anim)
     {
@@ -169,6 +175,9 @@ public class caminar : MonoBehaviour
         }
         return false;
     }
+
+ 
+
 
     void OnDrawGizmos()
     {

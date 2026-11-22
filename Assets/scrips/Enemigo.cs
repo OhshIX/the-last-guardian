@@ -23,20 +23,19 @@ public class Enemigo : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            // VERIFICAR PISADA DESDE ARRIBA (Muerte de enemigos ambientales comunes)
+            // VERIFICAR PISADA DESDE ARRIBA
             foreach (ContactPoint2D puntoContacto in other.contacts)
             {
-                // Si el jugador cae desde arriba
                 if (puntoContacto.normal.y < -0.5f) 
                 {
-                    // === MODIFICACIÓN PROFESIONAL: FILTRAR Y RESPETAR AL VILLANO ===
-                    // Si el objeto que pisamos es el Villano Multiplayer, le cedemos el control a su propio sistema de 3 vidas
+                    // === FILTRO INTELIGENTE PARA TU VILLANO MULTIPLAYER ===
+                    // Si el objeto tiene las mecánicas del villano, delegamos el daño a sus pisotones independientes
                     VillanoAtaqueFuego ataqueVillano = GetComponent<VillanoAtaqueFuego>();
                     if (ataqueVillano != null)
                     {
-                        ataqueVillano.RecibirPisoton(); // Ejecuta 1 pisotón de los 3 necesarios
-                        
-                        // Hacemos rebotar al jugador que cayó encima del jefe
+                        ataqueVillano.RecibirPisoton(); 
+
+                        // Hacer rebotar al jugador encima del jefe
                         Rigidbody2D rbJefe = other.gameObject.GetComponent<Rigidbody2D>();
                         if (rbJefe != null)
                         {
@@ -44,13 +43,12 @@ public class Enemigo : MonoBehaviour
                             float fuerzaRebote = (scriptJugador != null) ? scriptJugador.fuerzaSalto * 0.8f : 8f;
                             rbJefe.velocity = new Vector2(rbJefe.velocity.x, fuerzaRebote);
                         }
-                        return; // Salimos de este script para que NO destruya al villano de inmediato
+                        return; // Salimos para evitar que muera inmediatamente
                     }
 
                     // LÓGICA PARA ENEMIGOS COMUNES DEL MAPA (Rocas, magos, etc.)
                     _yaMurio = true; 
 
-                    // Hacer rebotar al jugador
                     Rigidbody2D rbJugador = other.gameObject.GetComponent<Rigidbody2D>();
                     if (rbJugador != null)
                     {
@@ -59,14 +57,12 @@ public class Enemigo : MonoBehaviour
                         rbJugador.velocity = new Vector2(rbJugador.velocity.x, fuerzaRebote);
                     }
 
-                    // Activar la animación de muerte unificada ("Morir")
                     Animator anim = GetComponent<Animator>();
                     if (anim != null)
                     {
                         anim.SetTrigger(TRIGGER_MUERTE); 
                     }
 
-                    // Desactivar físicas inmediatas para el enemigo común
                     Collider2D collider = GetComponent<Collider2D>();
                     if (collider != null) { collider.enabled = false; }
 
@@ -77,12 +73,10 @@ public class Enemigo : MonoBehaviour
                 }
             }
 
-            // Si el choque no fue desde arriba, el enemigo le hace daño al jugador
             EjecutarDanoAlJugador(other);
         }
     }
 
-    // MÉTODO PARA DESTRUIR AL ENEMIGO COMÚN (Llamado por el Animation Event al final del clip de muerte)
     public void Morir()
     {
         Destroy(gameObject);

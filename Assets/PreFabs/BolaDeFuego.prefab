@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6100979403689556752}
   - component: {fileID: 1298577036667011776}
   - component: {fileID: 4963005483288783814}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BolaDeFuego
   m_TagString: Untagged
   m_Icon: {fileID: 0}
