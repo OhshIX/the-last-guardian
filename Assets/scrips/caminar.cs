@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class caminar : MonoBehaviour
 {
+    [Header("Configuración de Multijugador")]
+    public bool esJugadorDos = false; // Falso para Player, Verdadero para Villano
+
     [Header("Movimiento")]
     public float velocidad = 5f;
     public float velocidadCorrer = 8f;
@@ -31,7 +34,10 @@ public class caminar : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
+        // Restaurado: Busca el Animator en el propio objeto 2D como lo tenías antes
         animator = GetComponent<Animator>();
+        
         escalaOriginal = transform.localScale;
     }
 
@@ -39,18 +45,38 @@ public class caminar : MonoBehaviour
     {
         // Si el jugador ya murió, bloqueamos por completo el control
         if (estaMuerto) return;
+        movimiento=0f;
 
-        movimiento = Input.GetAxisRaw("Horizontal");
-        corriendo = Input.GetKey(KeyCode.LeftShift);
+        // SEPARACIÓN DE CONTROLES LIMPIA
+        if (!esJugadorDos)
+        {
+            // JUGADOR 1 (PLAYER): Se mueve ÚNICAMENTE con letras A y D
+            if (Input.GetKey(KeyCode.A)) movimiento = -1f;
+            if (Input.GetKey(KeyCode.D)) movimiento = 1f;
 
-        // DETECTOR DE SUELO
+            corriendo = Input.GetKey(KeyCode.LeftShift);
+        }
+        else
+        {
+            // JUGADOR 2 (VILLANO: Usa flechas laterales y Shift Derecho)
+            movimiento = 0f;
+            if (Input.GetKey(KeyCode.LeftArrow)) movimiento = -1f;
+            if (Input.GetKey(KeyCode.RightArrow)) movimiento = 1f;
+
+            corriendo = Input.GetKey(KeyCode.RightShift);
+        }
+
+        // DETECTOR DE SUELO (Tu lógica original)
         if (puntoSuelo != null)
         {
             enSuelo = Physics2D.Raycast(puntoSuelo.position, Vector2.down, distanciaSuelo, capaSuelo);
         }
 
-        // ACCIÓN DE SALTO
-        if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
+        // ACCIÓN DE SALTO SEPARADA
+        // Player 1 salta con Espacio | Villano salta con Flecha Arriba
+        bool botonSalto = !esJugadorDos ? Input.GetKeyDown(KeyCode.Space) : Input.GetKeyDown(KeyCode.UpArrow);
+
+        if (botonSalto && enSuelo)
         {
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
 
@@ -62,30 +88,20 @@ public class caminar : MonoBehaviour
             if (animator != null)
             {
                 if (TieneParametro("SALTAR", animator)) animator.SetTrigger("SALTAR");
-                else if (TieneParametro("SALTAR", animator)) animator.SetTrigger("SALTAR");
             }
         }
 
-        // ENVIAR PARÁMETROS AL ANIMATOR DE FORMA SEGURA
+        // ENVIAR PARÁMETROS AL ANIMATOR (Tu lógica original intacta)
         if (animator != null)
-         
         {
-            // Tomamos el valor directo de la tecla presionada (movimiento es 1 o -1)
-            // Usamos Mathf.Abs para que siempre sea positivo (así da 1 al caminar)
             float velocidadForzada = Mathf.Abs(movimiento);
 
-            // Intentamos enviar tanto en mayúsculas como en minúsculas por si acaso
             if (TieneParametro("VELOCIDAD", animator)) animator.SetFloat("VELOCIDAD", velocidadForzada);
-            else if (TieneParametro("VELOCIDAD", animator)) animator.SetFloat("VELOCIDAD", velocidadForzada);
-
             if (TieneParametro("EN_SUELO", animator)) animator.SetBool("EN_SUELO", enSuelo);
-            else if (TieneParametro("EN_SUELO", animator)) animator.SetBool("EN_SUELO", enSuelo);
-
             if (TieneParametro("CORRER", animator)) animator.SetBool("CORRER", corriendo);
-            else if (TieneParametro("CORRER", animator)) animator.SetBool("CORRER", corriendo);
         }
 
-        // Voltear personaje
+        // VOLTEAR PERSONAJE (Tu volteo original por escala intacto)
         if (movimiento > 0)
         {
             transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
@@ -104,22 +120,16 @@ public class caminar : MonoBehaviour
         rb.velocity = new Vector2(movimiento * velocidadActual, rb.velocity.y);
     }
 
-    // ==========================================
-    // MÉTODO DE MUERTE (Llamar desde script de daño)
-    // ==========================================
     public void Morir()
     {
-        if (estaMuerto) return; // Evita que se ejecute más de una vez
-
+        if (estaMuerto) return;
         estaMuerto = true;
 
         if (animator != null)
         {
             if (TieneParametro("MORIR", animator)) animator.SetTrigger("MORIR");
-            else if (TieneParametro("MORIR", animator)) animator.SetTrigger("MORIR");
         }
 
-        // Detener físicamente al personaje y desactivar fuerzas gravitacionales complejas
         if (rb != null)
         {
             rb.velocity = Vector2.zero;
@@ -127,7 +137,6 @@ public class caminar : MonoBehaviour
         }
     }
 
-    // Validador inteligente de parámetros
     private bool TieneParametro(string nombreParametro, Animator anim)
     {
         foreach (AnimatorControllerParameter param in anim.parameters)
@@ -146,9 +155,6 @@ public class caminar : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // POWER-UPS / POTENCIADORES
-    // ==========================================
     public void ActivarVelocidadBoost(float nuevaVelocidad, float duracion)
     {
         if (estaMuerto) return;
