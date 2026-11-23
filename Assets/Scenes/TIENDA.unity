@@ -354,7 +354,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 313661501}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313661503}
+        m_TargetAssemblyTypeName: BotonCompra, Assembly-CSharp
+        m_MethodName: MarcarComoComprado
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &313661501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,7 +759,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 979047070}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 979047072}
+        m_TargetAssemblyTypeName: BotonCompra, Assembly-CSharp
+        m_MethodName: MarcarComoComprado
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &979047070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,7 +906,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1481066518}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1481066520}
+        m_TargetAssemblyTypeName: BotonCompra, Assembly-CSharp
+        m_MethodName: MarcarComoComprado
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1481066518
 MonoBehaviour:
   m_ObjectHideFlags: 0
