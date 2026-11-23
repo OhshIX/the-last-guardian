@@ -10,7 +10,6 @@ public class BotonCompra : MonoBehaviour
     [Header("Imagen al comprar")]
     public Sprite spriteComprado;
 
-    // Guarda las compras SOLO mientras el juego esté abierto (se reinicia al cerrar o quitar Play)
     private static HashSet<string> comprasEnEstaPartida = new HashSet<string>();
 
     private Button boton;
@@ -57,5 +56,10 @@ public class BotonCompra : MonoBehaviour
         {
             boton.interactable = false;
         }
+    }
+
+    public static bool EstaComprado(string id)
+    {
+        return comprasEnEstaPartida.Contains(id);
     }
 }
