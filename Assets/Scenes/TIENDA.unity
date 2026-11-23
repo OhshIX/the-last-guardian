@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a9f5c69347ddc41b86cea14f87055b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idCompra: item_3
   spriteComprado: {fileID: 21300000, guid: 48e7c0594d77e4f4782c3713f7ea4988, type: 3}
 --- !u!1 &633785390
 GameObject:
@@ -641,6 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a9f5c69347ddc41b86cea14f87055b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idCompra: item_1
   spriteComprado: {fileID: 21300000, guid: 48e7c0594d77e4f4782c3713f7ea4988, type: 3}
 --- !u!1 &1481066515
 GameObject:
@@ -775,6 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a9f5c69347ddc41b86cea14f87055b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idCompra: item_2
   spriteComprado: {fileID: 21300000, guid: 48e7c0594d77e4f4782c3713f7ea4988, type: 3}
 --- !u!1 &1687660311
 GameObject:

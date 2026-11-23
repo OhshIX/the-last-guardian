@@ -2233,6 +2233,7 @@ GameObject:
   - component: {fileID: 848934284}
   - component: {fileID: 848934283}
   - component: {fileID: 848934286}
+  - component: {fileID: 848934287}
   m_Layer: 0
   m_Name: BotasDeSalto
   m_TagString: Untagged
@@ -2366,6 +2367,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saltoPotenciado: 15
   duracion: 10
+--- !u!114 &848934287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848934282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec173a783766dc41a058330c8fc7b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idCompra: item_1
+  ocultarSiNoComprado: 1
 --- !u!4 &944999203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4509443734156788643, guid: c9657d49438f9b048be09f6b6df1f1ea, type: 3}
@@ -7371,6 +7386,10 @@ PrefabInstance:
     - target: {fileID: 5217488563371664604, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2946521544
+      objectReference: {fileID: 0}
+    - target: {fileID: 5217488563371664604, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2563463996
       objectReference: {fileID: 0}
     - target: {fileID: 6807260048725663502, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Size.x
