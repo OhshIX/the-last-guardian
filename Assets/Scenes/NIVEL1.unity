@@ -3626,7 +3626,6 @@ MonoBehaviour:
   colorGolpe: {r: 1, g: 0, b: 0, a: 1}
   tiempoColorCambio: 2
   Dano: {fileID: 8300000, guid: 9cca760a8a7976d4eba297b9c7633bb4, type: 3}
-  scriptFuego: {fileID: 0}
 --- !u!50 &1300824597
 Rigidbody2D:
   serializedVersion: 4
@@ -11243,6 +11242,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5217488563371664604, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1619710751
+      objectReference: {fileID: 0}
     - target: {fileID: 7873320744559512005, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: salto
       value: 
@@ -11252,11 +11255,28 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9036855656681459413, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036855656681459413, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9204912
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036855656681459413, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9204912
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036855656681459413, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9547169
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036855656681459413, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_SortingOrder
       value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2267412441874852670, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2527995001659917818, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
