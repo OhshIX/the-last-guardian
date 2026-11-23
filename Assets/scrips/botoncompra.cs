@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,9 @@ public class BotonCompra : MonoBehaviour
     [Header("Imagen al comprar")]
     public Sprite spriteComprado;
 
+    // Guarda las compras SOLO mientras el juego esté abierto (se reinicia al cerrar o quitar Play)
+    private static HashSet<string> comprasEnEstaPartida = new HashSet<string>();
+
     private Button boton;
     private Image imagen;
     private bool yaComprado = false;
@@ -18,8 +22,7 @@ public class BotonCompra : MonoBehaviour
         boton = GetComponent<Button>();
         imagen = GetComponent<Image>();
 
-        // Al cargar la escena TIENDA, revisa si ya estaba comprado
-        if (PlayerPrefs.GetInt("Comprado_" + idCompra, 0) == 1)
+        if (comprasEnEstaPartida.Contains(idCompra))
         {
             AplicarEstadoComprado();
         }
@@ -37,9 +40,7 @@ public class BotonCompra : MonoBehaviour
     {
         if (yaComprado) return;
 
-        PlayerPrefs.SetInt("Comprado_" + idCompra, 1);
-        PlayerPrefs.Save();
-
+        comprasEnEstaPartida.Add(idCompra);
         AplicarEstadoComprado();
     }
 
