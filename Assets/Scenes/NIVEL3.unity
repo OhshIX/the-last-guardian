@@ -1879,6 +1879,7 @@ GameObject:
   - component: {fileID: 848934283}
   - component: {fileID: 848934286}
   - component: {fileID: 848934287}
+  - component: {fileID: 848934288}
   m_Layer: 0
   m_Name: BotasDeSalto
   m_TagString: Untagged
@@ -2026,6 +2027,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCompra: item_1
   ocultarSiNoComprado: 1
+  forzarOcultarEnPruebas: 0
+--- !u!114 &848934288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848934282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec173a783766dc41a058330c8fc7b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idCompra: item_1
+  ocultarSiNoComprado: 1
+  forzarOcultarEnPruebas: 0
 --- !u!1 &942033093
 GameObject:
   m_ObjectHideFlags: 0
