@@ -4916,6 +4916,10 @@ PrefabInstance:
       propertyPath: Salto
       value: 
       objectReference: {fileID: 8300000, guid: 1e49aa0174c55e240ac955a29f924cc2, type: 3}
+    - target: {fileID: 149653295524337428, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
+      propertyPath: esJugadorDos
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3653212021223970356, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
       propertyPath: m_SortingOrder
       value: 5
@@ -7327,6 +7331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2527995001659917818, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4125082151969352794, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Controller
       value: 
@@ -7421,7 +7429,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7873320744559512005, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: fuerzaSalto
-      value: 9
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873320744559512005, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: esJugadorDos
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7873320744559512005, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: distanciaSuelo

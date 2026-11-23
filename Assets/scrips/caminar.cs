@@ -97,8 +97,8 @@ public class caminar : MonoBehaviour
         }
 
         // ACCIÓN DE SALTO SEPARADA
-        // Player 1 salta con Espacio | Villano salta con Flecha Arriba
-        bool botonSalto = !esJugadorDos ? Input.GetKeyDown(KeyCode.Space) : Input.GetKeyDown(KeyCode.UpArrow);
+        // Player 1 salta con w | Villano salta con Flecha Arriba
+        bool botonSalto = !esJugadorDos ? Input.GetKeyDown(KeyCode.W) : Input.GetKeyDown(KeyCode.UpArrow);
 
         if (botonSalto && enSuelo)
         {
