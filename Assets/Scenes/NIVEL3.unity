@@ -1773,11 +1773,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &782220342 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6114983638395653613, guid: 5c9a19000d434524f95f2d269c8f7607, type: 3}
-  m_PrefabInstance: {fileID: 5107498229234586553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &817627509
 GameObject:
   m_ObjectHideFlags: 0
@@ -5721,10 +5716,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: villano
       objectReference: {fileID: 0}
-    - target: {fileID: 9143656933762772700, guid: c7530a3a3684c27438a64f4ab62d6b06, type: 3}
-      propertyPath: prefabBolaFuego
-      value: 
-      objectReference: {fileID: 782220342}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

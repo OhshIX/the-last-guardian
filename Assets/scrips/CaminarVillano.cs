@@ -83,7 +83,7 @@ public class CaminarVillano : MonoBehaviour
             float velocidadForzada = Mathf.Abs(movimiento);
 
             if (TieneParametro("VELOCIDAD", animator)) animator.SetFloat("VELOCIDAD", velocidadForzada);
-            if (TieneParametro("EN_SUELO", animator)) animator.SetBool("EN_SUELO", enSuelo);
+            if (TieneParametro("ENSUELO", animator)) animator.SetBool("ENSUELO", enSuelo);
             if (TieneParametro("CORRER", animator)) animator.SetBool("CORRER", corriendo);
         }
 

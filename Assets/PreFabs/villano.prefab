@@ -1,67 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1910631110643475614
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 412854276704737879}
-  m_Layer: 8
-  m_Name: PuntoDisparo
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &412854276704737879
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910631110643475614}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.81, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6252091811266608123}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3079952135668820707
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4832375515956890565}
-  m_Layer: 3
-  m_Name: Detector_Suelo
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4832375515956890565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3079952135668820707}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13, y: -3.05, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6252091811266608123}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3928496508645108836
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +76,6 @@ GameObject:
   - component: {fileID: 3653212021223970356}
   - component: {fileID: 2267546349858499506}
   - component: {fileID: 1056995138208329211}
-  - component: {fileID: 9143656933762772700}
   - component: {fileID: 7750830043787302247}
   m_Layer: 8
   m_Name: villano
@@ -162,8 +99,6 @@ Transform:
   m_Children:
   - {fileID: 4111373972530693603}
   - {fileID: 1199209651412556334}
-  - {fileID: 4832375515956890565}
-  - {fileID: 412854276704737879}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7094651308229899838
@@ -326,21 +261,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &9143656933762772700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7216439620149570991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6954981b8fa75c4695eff90ebd7c051, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabBolaFuego: {fileID: 0}
-  puntoDisparo: {fileID: 412854276704737879}
-  vidasPisotones: 3
 --- !u!114 &7750830043787302247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +278,7 @@ MonoBehaviour:
   fuerzaSalto: 10
   Salto: {fileID: 8300000, guid: 1e49aa0174c55e240ac955a29f924cc2, type: 3}
   puntoSuelo: {fileID: 4111373972530693603}
-  distanciaSuelo: 0.2
+  distanciaSuelo: 0.3
   capaSuelo:
     serializedVersion: 2
     m_Bits: 8
