@@ -73,7 +73,7 @@ public class CaminarVillano : MonoBehaviour
 
             if (animator != null)
             {
-                if (TieneParametro("SALTAR", animator)) animator.SetTrigger("SALTAR");
+                if (TieneParametro("ENSUELO", animator)) animator.SetTrigger("ENSUELO");
             }
         }
 
