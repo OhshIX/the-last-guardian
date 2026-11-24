@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1060ea6b022e94e93af036d61c2aef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  esJugadorDos: 1
   velocidad: 5
   velocidadCorrer: 8
   fuerzaSalto: 10
