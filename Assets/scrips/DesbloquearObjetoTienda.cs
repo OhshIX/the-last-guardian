@@ -13,14 +13,7 @@ public class DesbloquearObjetoTienda : MonoBehaviour
 
     void Awake()
     {
-        string clave = "Comprado_" + idCompra;
-        bool comprado = PlayerPrefs.GetInt(clave, 0) == 1;
-
-        Debug.Log("[TiendaCheck] Objeto: " + gameObject.name +
-                  " | Clave: " + clave +
-                  " | comprado: " + comprado +
-                  " | ocultarSiNoComprado: " + ocultarSiNoComprado +
-                  " | forzarOcultarEnPruebas: " + forzarOcultarEnPruebas);
+        bool comprado = BotonCompra.EstaComprado(idCompra);
 
         if (forzarOcultarEnPruebas)
         {
