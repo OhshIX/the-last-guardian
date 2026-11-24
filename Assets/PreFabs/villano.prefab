@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1910631110643475614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412854276704737879}
+  m_Layer: 8
+  m_Name: PuntoDisparo
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &412854276704737879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910631110643475614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.81, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6252091811266608123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3079952135668820707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4832375515956890565}
+  m_Layer: 3
+  m_Name: Detector_Suelo
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4832375515956890565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079952135668820707}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.13, y: -3.05, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6252091811266608123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3928496508645108836
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,10 +135,11 @@ GameObject:
   - component: {fileID: 6252091811266608123}
   - component: {fileID: 7094651308229899838}
   - component: {fileID: 5930739808603982621}
-  - component: {fileID: 149653295524337428}
   - component: {fileID: 3653212021223970356}
-  - component: {fileID: 6275568093763562647}
-  - component: {fileID: 6354128496400783182}
+  - component: {fileID: 2267546349858499506}
+  - component: {fileID: 1056995138208329211}
+  - component: {fileID: 9143656933762772700}
+  - component: {fileID: 7750830043787302247}
   m_Layer: 8
   m_Name: villano
   m_TagString: Villano
@@ -94,11 +157,13 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.44, y: -6.44, z: 0}
-  m_LocalScale: {x: 0.5236976, y: 0.45300668, z: 0.78787}
+  m_LocalScale: {x: 0.556968, y: 0.5421772, z: 0.78787}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4111373972530693603}
   - {fileID: 1199209651412556334}
+  - {fileID: 4832375515956890565}
+  - {fileID: 412854276704737879}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7094651308229899838
@@ -148,7 +213,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.057358205, y: -0.31734824}
+  m_Offset: {x: -0.04410577, y: -0.3229072}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -159,30 +224,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.8678226, y: 5.760225}
+  m_Size: {x: 3.6167917, y: 6.113034}
   m_EdgeRadius: 0
---- !u!114 &149653295524337428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7216439620149570991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd1060ea6b022e94e93af036d61c2aef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 5
-  velocidadCorrer: 8
-  fuerzaSalto: 10
-  Salto: {fileID: 8300000, guid: 1e49aa0174c55e240ac955a29f924cc2, type: 3}
-  puntoSuelo: {fileID: 4111373972530693603}
-  distanciaSuelo: 0.2
-  capaSuelo:
-    serializedVersion: 2
-    m_Bits: 8
-  esInmune: 0
 --- !u!212 &3653212021223970356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -235,7 +278,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &6275568093763562647
+--- !u!95 &2267546349858499506
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7216439620149570991}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ea9444cd58514384c9ea7756a620079a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &1056995138208329211
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -261,25 +325,40 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!95 &6354128496400783182
-Animator:
-  serializedVersion: 5
+  m_Constraints: 0
+--- !u!114 &9143656933762772700
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7216439620149570991}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ea9444cd58514384c9ea7756a620079a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6954981b8fa75c4695eff90ebd7c051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBolaFuego: {fileID: 0}
+  puntoDisparo: {fileID: 412854276704737879}
+  vidasPisotones: 3
+--- !u!114 &7750830043787302247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7216439620149570991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e031733d3d2af5c428ff06ab59bf11cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 5
+  velocidadCorrer: 8
+  fuerzaSalto: 10
+  Salto: {fileID: 8300000, guid: 1e49aa0174c55e240ac955a29f924cc2, type: 3}
+  puntoSuelo: {fileID: 4111373972530693603}
+  distanciaSuelo: 0.2
+  capaSuelo:
+    serializedVersion: 2
+    m_Bits: 8
