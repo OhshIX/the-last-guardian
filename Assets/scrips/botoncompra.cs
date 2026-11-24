@@ -11,13 +11,29 @@ public class BotonCompra : MonoBehaviour
     public Sprite spriteComprado;
 
     private static HashSet<string> comprasEnEstaPartida = new HashSet<string>();
+    private static bool sesionInicializada = false;
 
     private Button boton;
     private Image imagen;
     private bool yaComprado = false;
 
+   [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void PrepararSesionLimpia()
+    {
+        comprasEnEstaPartida.Clear();
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        sesionInicializada = true;
+    }
+
     void Awake()
     {
+        if (!sesionInicializada)
+        {
+            comprasEnEstaPartida.Clear();
+            sesionInicializada = true;
+        }
+
         boton = GetComponent<Button>();
         imagen = GetComponent<Image>();
 
@@ -61,5 +77,10 @@ public class BotonCompra : MonoBehaviour
     public static bool EstaComprado(string id)
     {
         return comprasEnEstaPartida.Contains(id);
+    }
+
+    void OnApplicationQuit()
+    {
+        comprasEnEstaPartida.Clear();
     }
 }
