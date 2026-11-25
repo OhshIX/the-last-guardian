@@ -1327,9 +1327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1186bb9d84bf843ada7d23dd668100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  botonHost: {fileID: 0}
-  botonClient: {fileID: 0}
-  nombreNivel: NIVEL1
 --- !u!4 &329128286
 Transform:
   m_ObjectHideFlags: 0
@@ -11558,7 +11555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2527995001659917818, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4316299807859077614, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_LocalScale.x
