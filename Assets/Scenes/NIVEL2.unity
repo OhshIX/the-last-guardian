@@ -3368,6 +3368,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7193676067285742483, guid: c2a31ec5a58ef364d978a7dca848bbbe, type: 3}
+      propertyPath: nombreSiguienteNivel
+      value: NIVEL3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6134,6 +6138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esElUltimoNivel: 0
+  nombreSiguienteNivel: NIVEL2
+  escenaGanaste: Ganaste
 --- !u!1 &1850447365
 GameObject:
   m_ObjectHideFlags: 0
