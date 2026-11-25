@@ -10,15 +10,17 @@ public class CambioDeNivel : MonoBehaviour
 
     private bool yaCambio = false;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    // SE CORRIGIÓ AQUÍ: Cambiado a OnCollisionEnter2D para que detecte el golpe físico
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (yaCambio) return;
 
-        if (other.CompareTag("Player"))
+        // Se cambió 'other' por 'collision.gameObject'
+        if (collision.gameObject.CompareTag("Player"))
         {
             yaCambio = true;
             string destino = esElUltimoNivel ? escenaGanaste : nombreSiguienteNivel;
-            Debug.Log("¡Jugador entró en CambioNivel! Cargando: " + destino);
+            Debug.Log("¡Jugador chocó con el cofre! Cargando: " + destino);
             SceneManager.LoadScene(destino);
         }
     }
