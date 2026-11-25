@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
-public class caminar : NetworkBehaviour
+
+public class caminar : MonoBehaviour
 {
     [Header("Movimiento Caballero")]
     public float velocidad = 5f;
@@ -38,9 +38,6 @@ public class caminar : NetworkBehaviour
 
     void Update()
     {
-        // Solo el dueño de este personaje lee sus propias teclas
-        if (!IsOwner) return;
-
         if (estaMuerto) return;
         movimiento = 0f;
 
@@ -95,9 +92,6 @@ public class caminar : NetworkBehaviour
 
     void FixedUpdate()
     {
-        // Solo el dueño aplica físicas a su propio personaje
-        if (!IsOwner) return;
-
         if (estaMuerto) return;
 
         float velocidadActual = corriendo ? velocidadCorrer : velocidad;
@@ -194,9 +188,6 @@ public class caminar : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Solo el dueño procesa sus propias colisiones de pisotón
-        if (!IsOwner) return;
-
         // Lógica intacta para dañar al villano mediante un pisotón desde arriba
         if (collision.gameObject.name == "villano" || collision.gameObject.CompareTag("Villano"))
         {
@@ -214,4 +205,3 @@ public class caminar : NetworkBehaviour
         }
     }
 }
-
