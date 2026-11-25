@@ -1,27 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // <-- SE AGREGÓ ESTA LÍNEA
 
 public class CambioDeNivel : MonoBehaviour
 {
     [Header("Configuración del Destino")]
     [SerializeField] private bool esElUltimoNivel = false;
-    
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (GameManager.Instance != null)
-           
-            {   if (esElUltimoNivel)
-                {
-                    GameManager.Instance.Ganaste();
-                }
-                    else{
-                    GameManager.Instance.CambioDeNivel();
-                        }   
-            }
+            Debug.Log("¡Cofre tocado físicamente! Cargando Escena Ganaste.");
+            
+            // LA PARTE QUE CAMBIÓ: Ahora carga la escena directamente sin usar el GameManager
+            SceneManager.LoadScene("Ganaste"); 
         }
     }
-
-}    
+}
