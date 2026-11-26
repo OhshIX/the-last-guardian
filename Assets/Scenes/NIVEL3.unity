@@ -2101,7 +2101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuerzaEmpuje: 50
-  direccionEmpuje: {x: 1, y: 0}
+  direccionEmpuje: {x: 0, y: 0}
   colorGolpe: {r: 1, g: 0, b: 0, a: 1}
   tiempoColorCambio: 2
   Dano: {fileID: 8300000, guid: 9cca760a8a7976d4eba297b9c7633bb4, type: 3}
@@ -2264,7 +2264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esEnemigoRoca: 0
-  esEnemigoMago: 0
+  esEnemigoMago: 1
   tiempoEntreAtaques: 3
 --- !u!1 &763880298
 GameObject:
