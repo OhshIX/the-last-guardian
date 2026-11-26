@@ -15,29 +15,29 @@ public class CambioDeNivel : MonoBehaviour
     {
         if (yaCambio) return;
 
+        // REGRESAMOS A TU LÓGICA: Solo el objeto con Tag "Player" puede activar la meta
         if (collision.gameObject.CompareTag("Player"))
         {
-            // OBTENEMOS EL COMPONENTE DE RED DEL JUGADOR QUE CHOCÓ
-            NetworkObject netObject = collision.gameObject.GetComponent<NetworkObject>();
+            yaCambio = true;
+            string destino = esElUltimoNivel ? escenaGanaste : nombreSiguienteNivel;
+            Debug.Log("¡El Héroe chocó con el cofre! Cargando: " + destino);
 
-            if (netObject != null)
+            // --- LÓGICA MULTIJUGADOR OPTIMIZADA ---
+            
+            // Si el Controlador Persistente dice que es multijugador, viajamos por red
+            if (ControladorPersistente.Instance != null && ControladorPersistente.Instance.esPartidaMultijugador)
             {
-                yaCambio = true;
-                string destino = esElUltimoNivel ? escenaGanaste : nombreSiguienteNivel;
-                Debug.Log("¡Jugador chocó con el cofre en Red! Cargando: " + destino);
-
-                // --- AQUÍ SE AGREGÓ LA LÓGICA MULTIJUGADOR ---
-                // Validamos si la red está activa y si somos el Servidor/Host
+                // Netcode exige que SOLO el Servidor/Host ordene el cambio de escena
                 if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
                 {
                     // Netcode cambia la escena para TODOS los jugadores al mismo tiempo de forma segura
                     NetworkManager.Singleton.SceneManager.LoadScene(destino, LoadSceneMode.Single);
                 }
-                else if (NetworkManager.Singleton == null)
-                {
-                    // Si por alguna razón estás probando el juego sin red (modo un solo jugador), usa el método clásico
-                    SceneManager.LoadScene(destino);
-                }
+            }
+            else
+            {
+                // Si el jugador está jugando en modo Solitario, viaja de la forma clásica de Unity
+                SceneManager.LoadScene(destino);
             }
         }
     }

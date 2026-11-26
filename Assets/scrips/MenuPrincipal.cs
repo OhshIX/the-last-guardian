@@ -6,22 +6,52 @@ using UnityEngine.SceneManagement;
 
 public class MenuPrincipal : MonoBehaviour
 {
-    public void CargarEscena(string NIVEL1)
+    [Header("Configuración de Índices de Prefab (NetworkManager)")]
+    [Tooltip("El ID del Player en la lista del NetworkManager (suele ser 0)")]
+    public uint indicePlayer = 0;
+    
+    [Tooltip("El ID del Villano en la lista del NetworkManager (suele ser 1)")]
+    public uint indiceVillano = 1;
+
+    // 1. MODO UN JUGADOR (Clásico)
+    public void CargarEscena(string nombreEscena)
     {
-        SceneManager.LoadScene(NIVEL1);
+        if (ControladorPersistente.Instance != null) 
+            ControladorPersistente.Instance.esPartidaMultijugador = false;
+
+        SceneManager.LoadScene(nombreEscena);
     }
 
-    public void CrearPartidaMultiplayer(string NIVEL1)
+    // 2. CREAR PARTIDA COMO HOST (Player 1)
+    public void CrearPartidaMultiplayer(string nombreEscena)
     {
+        if (ControladorPersistente.Instance != null) 
+            ControladorPersistente.Instance.esPartidaMultijugador = true;
+
+        // Cambiamos el Prefab usando la lista directa del NetworkManager de tu versión
+        var prefabsLista = NetworkManager.Singleton.NetworkConfig.Prefabs.Prefabs;
+        NetworkManager.Singleton.NetworkConfig.PlayerPrefab = prefabsLista[(int)indicePlayer].Prefab;
+
         NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene(NIVEL1, LoadSceneMode.Single);
+        
+        // El Host es el encargado de cambiar la escena en red para todos
+        NetworkManager.Singleton.SceneManager.LoadScene(nombreEscena, LoadSceneMode.Single);
     }
 
+    // 3. UNIRSE A LA PARTIDA COMO CLIENTE (Villano)
     public void UnirsePartidaMultiplayer()
     {
+        if (ControladorPersistente.Instance != null) 
+            ControladorPersistente.Instance.esPartidaMultijugador = true;
+
+        // Cambiamos el Prefab usando la lista directa del NetworkManager de tu versión
+        var prefabsLista = NetworkManager.Singleton.NetworkConfig.Prefabs.Prefabs;
+        NetworkManager.Singleton.NetworkConfig.PlayerPrefab = prefabsLista[(int)indiceVillano].Prefab;
+        
         NetworkManager.Singleton.StartClient();
     }
 
+    // 4. SALIR DEL JUEGO
     public void SalirJuego()
     {
         Application.Quit();

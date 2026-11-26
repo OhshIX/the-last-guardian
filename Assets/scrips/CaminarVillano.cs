@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode; // IMPORTANTE: Agregamos la librería de Netcode para que funcione IsOwner
 
-public class CaminarVillano : MonoBehaviour
+// Cambiamos MonoBehaviour por NetworkBehaviour para habilitar las funciones de red
+public class CaminarVillano : NetworkBehaviour 
 {
     [Header("Movimiento Villano")]
     public float velocidad = 5f;
@@ -34,6 +36,11 @@ public class CaminarVillano : MonoBehaviour
 
     void Update()
     {
+        // 1. FILTRO DE RED: Si este clon no me pertenece, no ejecuto nada de lo que está abajo
+        if (!IsOwner) return; 
+
+        if (estaMuerto) return;
+
         // ACCIÓN DE ATAQUE EXCLUSIVA PARA EL VILLANO
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -46,7 +53,6 @@ public class CaminarVillano : MonoBehaviour
             }
         }
 
-        if (estaMuerto) return;
         movimiento = 0f;
 
         // CONTROLES EXCLUSIVOS DEL VILLANO: Flechas laterales y Shift Derecho
@@ -100,7 +106,8 @@ public class CaminarVillano : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (estaMuerto) return;
+        // 2. FILTRO DE RED PARA FISICAS: Si no soy el dueño, no altero sus físicas locales
+        if (!IsOwner || estaMuerto) return;
 
         float velocidadActual = corriendo ? velocidadCorrer : velocidad;
         rb.velocity = new Vector2(movimiento * velocidadActual, rb.velocity.y);
@@ -124,3 +131,4 @@ public class CaminarVillano : MonoBehaviour
         }
     }
 }
+

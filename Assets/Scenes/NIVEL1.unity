@@ -4216,7 +4216,7 @@ GameObject:
   - component: {fileID: 1469304142}
   - component: {fileID: 1469304141}
   - component: {fileID: 1469304144}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: cieloINFINITO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
