@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		// Sincronización para cuando arranca el Nivel 1
+		// Sincronización inicial al arrancar
 		CoordinarHUD();
 	}
 
@@ -55,20 +55,25 @@ public class GameManager : MonoBehaviour
 		vidas = 3;
 		PuntosTotales = 0;
 
+		// Forzamos la búsqueda del nuevo HUD de la escena cargada
+		hud = null; 
 		CoordinarHUD();
 	}
 
 	// 🎛️ Conecta los componentes de la interfaz de cada nivel de manera dinámica
 	private void CoordinarHUD()
 	{
-		hud = FindObjectOfType<HUD>();
+		if (hud == null)
+		{
+			hud = FindObjectOfType<HUD>();
+		}
 
 		if (hud != null)
 		{
-			// Envía los puntos actuales (0) a la nueva pantalla
+			// Envía los puntos actuales a la nueva pantalla
 			hud.ActualizarPuntos(PuntosTotales);
 			
-			// Dibuja el estado exacto de los corazones (3 completos)
+			// Dibuja el estado exacto de los corazones
 			for (int i = 0; i < 3; i++)
 			{
 				if (i < vidas)
@@ -82,6 +87,12 @@ public class GameManager : MonoBehaviour
 	public void SumarPuntos(int puntosASumar)
 	{
 		PuntosTotales += puntosASumar;
+		
+		if (hud == null)
+		{
+			hud = FindObjectOfType<HUD>();
+		}
+
 		if (hud != null)
 		{
 			hud.ActualizarPuntos(PuntosTotales);
@@ -90,49 +101,73 @@ public class GameManager : MonoBehaviour
 
 	public void PerderVida()
 	{
-		// 🛡️ FILTRO FANTASMA: Si el jugador es inmune, ignoramos el daño por completo
 		caminar jugador = FindObjectOfType<caminar>();
+
 		if (jugador != null && jugador.esInmune)
-		{
-			return; 
-		}
+			return;
 
-		// 1. Apagamos el corazón en el HUD usando el orden correcto que tu HUD requiere
-		if (hud != null)
+		if (vidas > 0)
 		{
-			hud.DesactivarVida(vidas - 1);
-		}
+			vidas--;
 
-		// 2. Restamos la vida internamente (Disminuye exactamente 1 corazón)
-		vidas -= 1;
-
-		// 3. Evaluamos si llegó a cero para iniciar la secuencia de derrota
-		if (vidas <= 0)
-		{
-			if (jugador != null)
+			// Buscamos siempre el HUD activo en la escena actual por si acaso
+			if (hud == null)
 			{
-				StartCoroutine(SecuenciaMuerteJugador(jugador.gameObject));
+				hud = FindObjectOfType<HUD>();
+			}
+
+			if (hud != null)
+			{
+				// Sincronizamos todos los corazones visualmente según las vidas restantes
+				for (int i = 0; i < 3; i++)
+				{
+					if (i < vidas)
+						hud.ActivarVida(i);
+					else
+						hud.DesactivarVida(i);
+				}
 			}
 			else
 			{
-				CargarPantallaPerdiste();
+				Debug.LogError("No se encontró el HUD en la escena.");
 			}
 		}
-	}
 
+		if (vidas <= 0)
+		{
+			if (jugador != null)
+				StartCoroutine(SecuenciaMuerteJugador(jugador.gameObject));
+			else
+				CargarPantallaPerdiste();
+		}
+	}
+	
 	public bool RecuperarVida()
 	{
-		if (vidas == 3)
+		if (vidas >= 3)
 		{
 			return false;
 		}
 
+		vidas++;
+
+		if (hud == null)
+		{
+			hud = FindObjectOfType<HUD>();
+		}
+
+		// Actualizar todos los corazones del HUD
 		if (hud != null)
 		{
-			hud.ActivarVida(vidas);
+			for (int i = 0; i < 3; i++)
+			{
+				if (i < vidas)
+					hud.ActivarVida(i);
+				else
+					hud.DesactivarVida(i);
+			}
 		}
-		
-		vidas += 1;
+
 		return true;
 	}
 
@@ -231,4 +266,3 @@ public class ContactoEnemigo : MonoBehaviour
 		}
 	}
 }
-
