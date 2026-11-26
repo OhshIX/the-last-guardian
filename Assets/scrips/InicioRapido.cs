@@ -3,15 +3,25 @@ using UnityEngine;
 
 public class InicioRapido : MonoBehaviour
 {
+    // Esto creará de inmediato la casilla en el Inspector de Unity
+    [Header("Referencias de Red")]
+    public NetworkManager networkManager; 
+
     void Start()
     {
-        if (NetworkManager.Singleton != null)
+        // Lógica automática: Si arrastraste el NetworkManager, arranca el Host al dar Play
+        if (networkManager != null)
         {
-            NetworkManager.Singleton.StartHost();
+            networkManager.StartHost();
+            Debug.Log("¡Inicio Rápido activado: Host iniciado automáticamente!");
         }
         else
         {
-            Debug.LogError("Falta poner el objeto NetworkManager en esta escena.");
+            // Si olvidaste arrastrarlo, el código intentará buscarlo solo para que no falle
+            if (NetworkManager.Singleton != null)
+            {
+                NetworkManager.Singleton.StartHost();
+            }
         }
     }
 }

@@ -1327,6 +1327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1186bb9d84bf843ada7d23dd668100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkManager: {fileID: 1005309533}
 --- !u!4 &329128286
 Transform:
   m_ObjectHideFlags: 0
@@ -3150,7 +3151,7 @@ MonoBehaviour:
   ConnectionData:
     Address: 127.0.0.1
     Port: 7777
-    ServerListenAddress: 
+    ServerListenAddress: 127.0.0.1
   DebugSimulator:
     PacketDelayMS: 0
     PacketJitterMS: 0

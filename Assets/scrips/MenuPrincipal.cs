@@ -28,13 +28,12 @@ public class MenuPrincipal : MonoBehaviour
         if (ControladorPersistente.Instance != null) 
             ControladorPersistente.Instance.esPartidaMultijugador = true;
 
-        // Cambiamos el Prefab usando la lista directa del NetworkManager de tu versión
-        var prefabsLista = NetworkManager.Singleton.NetworkConfig.Prefabs.Prefabs;
-        NetworkManager.Singleton.NetworkConfig.PlayerPrefab = prefabsLista[(int)indicePlayer].Prefab;
+        // Usamos la sintaxis limpia que tu Unity sí acepta sin errores
+        NetworkManager.Singleton.NetworkConfig.PlayerPrefab = NetworkManager.Singleton.NetworkConfig.Prefabs.Prefabs[(int)indicePlayer].Prefab;
 
         NetworkManager.Singleton.StartHost();
         
-        // El Host es el encargado de cambiar la escena en red para todos
+        // El Host cambia la escena en red para todos
         NetworkManager.Singleton.SceneManager.LoadScene(nombreEscena, LoadSceneMode.Single);
     }
 
@@ -44,9 +43,8 @@ public class MenuPrincipal : MonoBehaviour
         if (ControladorPersistente.Instance != null) 
             ControladorPersistente.Instance.esPartidaMultijugador = true;
 
-        // Cambiamos el Prefab usando la lista directa del NetworkManager de tu versión
-        var prefabsLista = NetworkManager.Singleton.NetworkConfig.Prefabs.Prefabs;
-        NetworkManager.Singleton.NetworkConfig.PlayerPrefab = prefabsLista[(int)indiceVillano].Prefab;
+        // Usamos la sintaxis limpia que tu Unity sí acepta sin errores
+        NetworkManager.Singleton.NetworkConfig.PlayerPrefab = NetworkManager.Singleton.NetworkConfig.Prefabs.Prefabs[(int)indiceVillano].Prefab;
         
         NetworkManager.Singleton.StartClient();
     }

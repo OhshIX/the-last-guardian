@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6327412523778555836}
   - component: {fileID: 6537336828849243521}
   - component: {fileID: 585840771732594164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MAGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
