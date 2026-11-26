@@ -8561,7 +8561,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2527995001659917818, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527995001659917818, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4125082151969352794, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Controller
@@ -8641,7 +8645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7052679144712137352, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7873320744559512005, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: Salto
