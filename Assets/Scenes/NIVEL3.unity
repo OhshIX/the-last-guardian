@@ -2101,7 +2101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuerzaEmpuje: 50
-  direccionEmpuje: {x: 1, y: 0}
+  direccionEmpuje: {x: 0, y: 0}
   colorGolpe: {r: 1, g: 0, b: 0, a: 1}
   tiempoColorCambio: 2
   Dano: {fileID: 8300000, guid: 9cca760a8a7976d4eba297b9c7633bb4, type: 3}
@@ -2264,7 +2264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esEnemigoRoca: 0
-  esEnemigoMago: 0
+  esEnemigoMago: 1
   tiempoEntreAtaques: 3
 --- !u!1 &763880298
 GameObject:
@@ -8561,7 +8561,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2527995001659917818, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527995001659917818, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4125082151969352794, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Controller
@@ -8641,7 +8645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7052679144712137352, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7873320744559512005, guid: 6bc20555a95aec74981c07add6ad9e99, type: 3}
       propertyPath: Salto
